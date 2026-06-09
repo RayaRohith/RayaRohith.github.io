@@ -10,247 +10,522 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --bg: #0A0E1A; --surface: #111827; --surface2: #161F30;
-      --border: #1E2D40; --cyan: #00D4FF; --purple: #7C3AED;
-      --cyan-dim: rgba(0,212,255,0.10); --text: #E2E8F0; --muted: #64748B;
-      --mono: 'JetBrains Mono', monospace; --sans: 'Inter', sans-serif;
+      --bg:        #0A0E1A;
+      --surface:   #111827;
+      --surface2:  #161F30;
+      --border:    #1E2D40;
+      --cyan:      #00D4FF;
+      --purple:    #7C3AED;
+      --cyan-dim:  rgba(0,212,255,0.12);
+      --cyan-glow: rgba(0,212,255,0.25);
+      --text:      #E2E8F0;
+      --muted:     #64748B;
+      --mono:      'JetBrains Mono', monospace;
+      --sans:      'Inter', sans-serif;
     }
+
     html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── SCROLLBAR ── */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 2px; }
 
-    /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,14,26,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; height: 56px; display: flex; align-items: center; justify-content: space-between; }
-    .nav-logo { font-family: var(--mono); font-size: 14px; color: var(--cyan); letter-spacing: 0.05em; }
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,14,26,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--cyan);
+      letter-spacing: 0.05em;
+    }
     .nav-logo span { color: var(--muted); }
     .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-    .nav-links a { font-family: var(--mono); font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
     .nav-links a:hover { color: var(--cyan); }
 
-    /* HERO */
-    #hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 80px 2rem 4rem; position: relative; overflow: hidden; }
-    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 48px 48px; opacity: 0.3; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%); }
-    .hero-inner { position: relative; z-index: 1; max-width: 900px; width: 100%; display: grid; grid-template-columns: 1fr 260px; gap: 3rem; align-items: center; }
-    .hero-text { }
-    .hero-eyebrow { font-family: var(--mono); font-size: 12px; color: var(--cyan); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
-    .hero-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--cyan); }
-    h1 { font-family: var(--mono); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; line-height: 1.2; color: var(--text); margin-bottom: 0.5rem; }
-    .cursor { display: inline-block; width: 3px; height: 0.9em; background: var(--cyan); margin-left: 4px; vertical-align: middle; animation: blink 1s step-end infinite; }
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 80px 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.35;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 760px; width: 100%;
+    }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--cyan);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 1px;
+      background: var(--cyan);
+    }
+    h1 {
+      font-family: var(--mono);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    h1 .cursor {
+      display: inline-block;
+      width: 3px; height: 1em;
+      background: var(--cyan);
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
     @keyframes blink { 50% { opacity: 0; } }
-    .hero-sub { font-family: var(--mono); font-size: 13px; color: var(--cyan); margin-bottom: 1.25rem; letter-spacing: 0.05em; }
-    .hero-desc { color: var(--muted); font-size: 14px; max-width: 520px; margin-bottom: 2rem; line-height: 1.8; }
-    .hero-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2rem; }
-    .tag { font-family: var(--mono); font-size: 11px; padding: 3px 9px; border: 1px solid var(--border); border-radius: 3px; color: var(--muted); }
+    .hero-sub {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--cyan);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.05em;
+    }
+    .hero-desc {
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+    .hero-tags {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      transition: all 0.2s;
+    }
+    .tag:hover { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); }
     .tag.active { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); }
-    .hero-cta { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-    .btn { font-family: var(--mono); font-size: 12px; padding: 9px 18px; border-radius: 4px; text-decoration: none; letter-spacing: 0.05em; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
-    .btn-primary { background: var(--cyan); color: var(--bg); border: 1px solid var(--cyan); font-weight: 700; }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 10px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary {
+      background: var(--cyan);
+      color: var(--bg);
+      border: 1px solid var(--cyan);
+      font-weight: 700;
+    }
     .btn-primary:hover { background: transparent; color: var(--cyan); }
-    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
     .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
 
-    /* HERO PHOTO */
-    .hero-photo-wrap { position: relative; }
-    .hero-photo { width: 240px; height: 300px; object-fit: cover; border-radius: 8px; border: 2px solid var(--border); display: block; filter: grayscale(20%); transition: filter 0.3s; }
-    .hero-photo:hover { filter: grayscale(0%); }
-    .hero-photo-wrap::before { content: ''; position: absolute; inset: -6px; border: 1px solid var(--cyan); border-radius: 10px; opacity: 0.3; pointer-events: none; }
-
-    /* SECTIONS */
+    /* ── SECTIONS ── */
     section { padding: 5rem 2rem; max-width: 900px; margin: 0 auto; }
-    .section-label { font-family: var(--mono); font-size: 11px; color: var(--cyan); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.4rem; }
-    h2 { font-family: var(--mono); font-size: 1.5rem; font-weight: 700; color: var(--text); margin-bottom: 2.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
-    h3 { font-family: var(--sans); font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--cyan);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    h2 {
+      font-family: var(--mono);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    h3 {
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
 
-    /* ABOUT */
-    .about-grid { display: grid; grid-template-columns: 1fr 200px; gap: 3rem; align-items: start; }
-    .about-text p { color: var(--muted); margin-bottom: 1rem; line-height: 1.8; font-size: 14px; }
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 3rem;
+      align-items: start;
+    }
+    .about-text p { color: var(--muted); margin-bottom: 1rem; line-height: 1.8; }
     .about-text p strong { color: var(--text); }
-    .about-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; }
-    .about-card-item { display: flex; flex-direction: column; margin-bottom: 0.9rem; padding-bottom: 0.9rem; border-bottom: 1px solid var(--border); }
+    .about-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+    .about-card-item {
+      display: flex; flex-direction: column;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
     .about-card-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-    .about-card-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
-    .about-card-value { font-size: 12px; color: var(--text); }
+    .about-card-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .about-card-value { font-size: 13px; color: var(--text); }
     .about-card-value a { color: var(--cyan); text-decoration: none; }
 
-    /* TIMELINE */
-    .timeline { display: flex; flex-direction: column; gap: 1.25rem; }
-    .tl-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--cyan); border-radius: 6px; padding: 1.25rem 1.5rem; transition: background 0.2s; }
-    .tl-item:hover { background: var(--surface2); }
-    .tl-meta { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; }
-    .tl-date { font-family: var(--mono); font-size: 11px; color: var(--cyan); }
+    /* ── TIMELINE (Education / Experience) ── */
+    .timeline { display: flex; flex-direction: column; gap: 1.5rem; }
+    .tl-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--cyan);
+      border-radius: 6px;
+      padding: 1.25rem 1.5rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .tl-item:hover { background: var(--surface2); border-color: var(--cyan); }
+    .tl-meta {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .tl-date {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--cyan);
+      letter-spacing: 0.05em;
+    }
     .tl-org { font-size: 13px; color: var(--muted); }
-    .tl-item ul { list-style: none; padding: 0; margin-top: 0.6rem; }
-    .tl-item ul li { color: var(--muted); font-size: 13px; padding: 3px 0 3px 1rem; position: relative; line-height: 1.6; }
-    .tl-item ul li::before { content: '›'; position: absolute; left: 0; color: var(--cyan); }
+    .tl-item ul { list-style: none; padding: 0; margin-top: 0.75rem; }
+    .tl-item ul li {
+      color: var(--muted);
+      font-size: 13px;
+      padding: 3px 0 3px 1rem;
+      position: relative;
+      line-height: 1.6;
+    }
+    .tl-item ul li::before {
+      content: '›';
+      position: absolute; left: 0;
+      color: var(--cyan);
+    }
     .tl-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
-    .tl-tag { font-family: var(--mono); font-size: 10px; padding: 2px 7px; border: 1px solid var(--border); border-radius: 3px; color: var(--muted); }
+    .tl-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      padding: 2px 8px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--muted);
+    }
 
-    /* PROJECTS */
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.25rem; }
-    .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.4rem; transition: border-color 0.2s, transform 0.2s; display: flex; flex-direction: column; }
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+      display: flex; flex-direction: column;
+    }
     .project-card:hover { border-color: var(--cyan); transform: translateY(-2px); }
-    .project-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
-    .project-icon { font-family: var(--mono); font-size: 10px; color: var(--cyan); background: var(--cyan-dim); border: 1px solid var(--border); padding: 3px 8px; border-radius: 3px; }
-    .project-link { font-family: var(--mono); font-size: 11px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .project-card-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+    .project-icon {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--cyan);
+      background: var(--cyan-dim);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+    .project-link {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
     .project-link:hover { color: var(--cyan); }
-    .project-card h3 { font-size: 13px; margin-bottom: 0.4rem; }
-    .project-card p { font-size: 12px; color: var(--muted); line-height: 1.7; flex: 1; }
-    .project-card-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 1rem; }
+    .project-card h3 { font-size: 14px; margin-bottom: 0.5rem; }
+    .project-card p { font-size: 13px; color: var(--muted); line-height: 1.7; flex: 1; }
+    .project-card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
 
-    /* SKILLS */
-    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1.25rem; }
-    .skill-group { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; }
-    .skill-group-title { font-family: var(--mono); font-size: 11px; color: var(--cyan); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+    .skill-group {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+    .skill-group-title {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--cyan);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
     .skill-list { list-style: none; }
-    .skill-list li { font-size: 13px; color: var(--muted); padding: 3px 0; display: flex; align-items: center; gap: 6px; }
+    .skill-list li {
+      font-size: 13px;
+      color: var(--muted);
+      padding: 3px 0;
+      display: flex; align-items: center; gap: 6px;
+    }
     .skill-list li::before { content: '▸'; color: var(--cyan); font-size: 10px; }
 
-    /* ACHIEVEMENTS */
+    /* ── ACHIEVEMENTS ── */
     .achievements-list { display: flex; flex-direction: column; gap: 1rem; }
-    .achievement-item { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1rem 1.25rem; display: flex; gap: 1rem; align-items: flex-start; transition: border-color 0.2s; }
+    .achievement-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+      transition: border-color 0.2s;
+    }
     .achievement-item:hover { border-color: var(--cyan); }
-    .achievement-icon { font-family: var(--mono); font-size: 10px; color: var(--bg); background: var(--cyan); padding: 3px 7px; border-radius: 3px; white-space: nowrap; margin-top: 2px; flex-shrink: 0; }
+    .achievement-icon {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--bg);
+      background: var(--cyan);
+      padding: 3px 7px;
+      border-radius: 3px;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
     .achievement-icon.purple { background: var(--purple); }
-    .achievement-icon.grey { background: var(--muted); }
     .achievement-text { font-size: 13px; color: var(--muted); line-height: 1.7; }
     .achievement-text strong { color: var(--text); }
-    .achievement-text a { color: var(--cyan); font-size: 11px; margin-left: 6px; }
 
-    /* CONFERENCE CARD */
-    .conf-card { background: var(--surface2); border: 1px solid var(--cyan); border-radius: 8px; padding: 1.5rem; display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem; align-items: center; margin-bottom: 1rem; }
-    .conf-card img { width: 100%; border-radius: 6px; border: 1px solid var(--border); }
-    .conf-card-label { font-family: var(--mono); font-size: 10px; color: var(--cyan); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
-    .conf-card h3 { font-size: 15px; margin-bottom: 0.5rem; color: var(--text); }
-    .conf-card p { font-size: 13px; color: var(--muted); line-height: 1.7; }
-    .conf-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
-    .conf-badge { font-family: var(--mono); font-size: 10px; padding: 3px 8px; border: 1px solid var(--border); border-radius: 3px; color: var(--muted); }
-
-    /* CERTS */
-    .certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
-    .cert-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; text-decoration: none; transition: border-color 0.2s, transform 0.2s; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+    /* ── CERTS ── */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+    .cert-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+      display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+    }
     .cert-card:hover { border-color: var(--cyan); transform: translateY(-2px); }
-    .cert-card img { width: 60px; height: 60px; object-fit: contain; border-radius: 4px; }
-    .cert-card span { font-size: 11px; color: var(--muted); font-family: var(--mono); text-align: center; line-height: 1.4; }
+    .cert-card img { width: 64px; height: 64px; object-fit: contain; border-radius: 4px; }
+    .cert-card span { font-size: 11px; color: var(--muted); font-family: var(--mono); text-align: center; }
 
-    /* CODING PROFILES */
-    .coding-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
-    .coding-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; text-align: center; text-decoration: none; transition: border-color 0.2s, transform 0.2s; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
-    .coding-card:hover { border-color: var(--cyan); transform: translateY(-2px); }
-    .coding-card img { width: 56px; height: 56px; object-fit: contain; border-radius: 4px; }
-    .coding-card span { font-size: 12px; color: var(--muted); font-family: var(--mono); text-align: center; line-height: 1.4; }
-
-    /* CONTACT */
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .contact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; text-decoration: none; transition: border-color 0.2s; display: flex; align-items: center; gap: 1rem; }
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      text-decoration: none;
+      transition: border-color 0.2s;
+      display: flex; align-items: center; gap: 1rem;
+    }
     .contact-card:hover { border-color: var(--cyan); }
-    .contact-icon { font-family: var(--mono); font-size: 11px; color: var(--cyan); background: var(--cyan-dim); padding: 6px 10px; border-radius: 4px; white-space: nowrap; }
-    .contact-text { display: flex; flex-direction: column; }
-    .contact-label { font-size: 11px; color: var(--muted); font-family: var(--mono); }
-    .contact-value { font-size: 13px; color: var(--text); }
+    .contact-card-icon {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--cyan);
+      background: var(--cyan-dim);
+      padding: 6px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .contact-card-text { display: flex; flex-direction: column; }
+    .contact-card-label { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+    .contact-card-value { font-size: 13px; color: var(--text); }
 
-    /* FOOTER */
-    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+    }
     footer span { color: var(--cyan); }
 
-    /* RESPONSIVE */
-    @media (max-width: 700px) {
-      .hero-inner { grid-template-columns: 1fr; }
-      .hero-photo-wrap { display: none; }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
       .about-grid { grid-template-columns: 1fr; }
       .contact-grid { grid-template-columns: 1fr; }
-      .conf-card { grid-template-columns: 1fr; }
       .nav-links { display: none; }
     }
-    /* ANIMATIONS */
-    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-    .nav-links a.nav-active { color: var(--cyan); }
-    #particle-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
-    .terminal-boot { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1rem 1.25rem; margin-bottom: 1.5rem; font-family: var(--mono); font-size: 12px; max-width: 480px; }
-    .terminal-line { color: var(--cyan); margin: 2px 0; opacity: 0; animation: fadeline 0.3s forwards; }
-    @keyframes fadeline { to { opacity: 1; } }
-    .stats-row { display: flex; gap: 2rem; flex-wrap: wrap; margin: 2rem 0; }
-    .stat-item { display: flex; flex-direction: column; align-items: flex-start; }
-    .stat-number { font-family: var(--mono); font-size: 2rem; font-weight: 700; color: var(--cyan); line-height: 1; }
-    .stat-label { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.1em; margin-top: 4px; }
-    .project-card { position: relative; overflow: hidden; }
-    .project-card::after { content: ""; position: absolute; inset: 0; border-radius: 8px; box-shadow: 0 0 0 1px var(--cyan); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
-    .project-card:hover::after { opacity: 1; }
   </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <div class="nav-logo">raya<span>@rohith</span>:~$</div>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#achievements">Achievements</a></li>
-    <li><a href="#certifications">Certifications</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#about">about</a></li>
+    <li><a href="#education">education</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#achievements">achievements</a></li>
+    <li><a href="#contact">contact</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
-<section id="hero" style="max-width:100%; padding-top:80px;">
-  <canvas id="particle-canvas"></canvas>
+<section id="hero">
   <div class="hero-grid"></div>
-  <div class="hero-inner" style="max-width:900px; margin:0 auto;">
-    <div class="hero-text">
-      <div id="terminal-lines" class="terminal-boot"></div>
-      <div class="hero-eyebrow">Edinburgh, United Kingdom</div>
-      <h1 id="hero-title" data-text="Raya Rohith Yadav"><span class="cursor"></span></h1>
-      <div class="hero-sub">// MSc Cyber Security &nbsp;&middot;&nbsp; AI Security Consultant &nbsp;&middot;&nbsp; SOC Analyst</div>
-      <p class="hero-desc">Cyber security graduate from the University of Edinburgh, working at the intersection of security operations, AI-driven threat detection, and governance. Exploring agentic AI workflows, ZAG pipelines, and LLM security.</p>
-      <div class="stats-row">
-        <div class="stat-item"><span class="stat-number" data-target="10" data-suffix="+">0+</span><span class="stat-label">Projects</span></div>
-        <div class="stat-item"><span class="stat-number" data-target="3" data-suffix="">0</span><span class="stat-label">IEEE &amp; Conference Papers</span></div>
-        <div class="stat-item"><span class="stat-number" data-target="5" data-suffix="+">0+</span><span class="stat-label">Years in Tech</span></div>
-        <div class="stat-item"><span class="stat-number" data-target="100" data-suffix="%">0%</span><span class="stat-label">UK Work Authorised</span></div>
-      </div>
-      <div class="hero-tags">
-        <span class="tag active">Threat Detection</span>
-        <span class="tag active">SIEM / XDR</span>
-        <span class="tag active">ISO 27001</span>
-        <span class="tag">Agentic AI</span>
-        <span class="tag">Incident Response</span>
-        <span class="tag">GRC</span>
-        <span class="tag">Penetration Testing</span>
-        <span class="tag">Zero-Knowledge Proofs</span>
-      </div>
-      <div class="hero-cta">
-        <a href="https://drive.google.com/file/d/1PnstzogUxvYWzcRXlbQbTCt_kpg88h4f/view?usp=sharing" class="btn btn-primary" target="_blank">View CV</a>
-        <a href="https://www.linkedin.com/in/raya-rohith-yadav-b71206204/" class="btn btn-ghost" target="_blank">LinkedIn</a>
-        <a href="https://github.com/RayaRohith" class="btn btn-ghost" target="_blank">GitHub</a>
-      </div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Edinburgh, United Kingdom</div>
+    <h1>Raya Rohith Yadav<span class="cursor"></span></h1>
+    <div class="hero-sub">// MSc Cyber Security &nbsp;·&nbsp; AI Security Consultant &nbsp;·&nbsp; SOC Analyst</div>
+    <p class="hero-desc">
+      Cyber security graduate from the University of Edinburgh, working at the intersection of
+      security operations, AI-driven threat detection, and governance. Currently exploring
+      agentic AI workflows, ZAG pipelines, and the security implications of LLMs in enterprise environments.
+    </p>
+    <div class="hero-tags">
+      <span class="tag active">Threat Detection</span>
+      <span class="tag active">SIEM / XDR</span>
+      <span class="tag">ISO 27001</span>
+      <span class="tag">Agentic AI</span>
+      <span class="tag">Incident Response</span>
+      <span class="tag">GRC</span>
+      <span class="tag">Penetration Testing</span>
+      <span class="tag">Zero-Knowledge Proofs</span>
     </div>
-    <div class="hero-photo-wrap">
-      <img src="images/RR.jpeg" alt="Raya Rohith Yadav" class="hero-photo" />
+    <div class="hero-cta">
+      <a href="https://drive.google.com/file/d/1PnstzogUxvYWzcRXlbQbTCt_kpg88h4f/view?usp=sharing" class="btn btn-primary" target="_blank">View CV</a>
+      <a href="https://www.linkedin.com/in/raya-rohith-yadav-b71206204/" class="btn btn-ghost" target="_blank">LinkedIn</a>
+      <a href="https://github.com/RayaRohith" class="btn btn-ghost" target="_blank">GitHub</a>
     </div>
   </div>
 </section>
 
 <!-- ABOUT -->
-<section id="about" class="fade-in">
+<section id="about">
   <div class="section-label">// 01</div>
-  <h2>About_Me</h2>
+  <h2>about_me</h2>
   <div class="about-grid">
     <div class="about-text">
-      <p>I am a <strong>Cyber Security MSc graduate from the University of Edinburgh</strong> with a foundation in Electronics and Communication Engineering from Anna University. My work sits at the boundary of security operations and applied AI.</p>
-      <p>On the security side, I build detection engineering workflows using <strong>Microsoft Sentinel, Defender XDR, and KQL</strong>, design and implement ISMS frameworks aligned to <strong>ISO 27001</strong>, and conduct web application vulnerability assessments following the OWASP Testing Guide.</p>
-      <p>On the AI side, I work as an <strong>AI Training Consultant at iMerit Technology</strong>, contributing to model evaluation and training pipelines. I am actively building knowledge in <strong>agentic AI architectures, ZAG pipelines</strong>, and LLM security, including adversarial misuse, prompt injection, and control design aligned to OWASP LLM Top 10 and MITRE ATLAS.</p>
-      <p>I delivered a conference talk at the <strong>Digital Research Conference 2026 at the Edinburgh Futures Institute</strong> on Zero-Knowledge Governance, proposing a cryptographic framework for auditing research integrity in Secure Multi-Party Computation environments.</p>
+      <p>
+        I am a <strong>Cyber Security MSc graduate from the University of Edinburgh</strong> with a foundation in
+        Electronics and Communication Engineering from Anna University. My work sits at the boundary of
+        security operations and applied AI.
+      </p>
+      <p>
+        On the security side, I build detection engineering workflows using <strong>Microsoft Sentinel, Defender XDR,
+        and KQL</strong>, design and implement ISMS frameworks aligned to <strong>ISO 27001</strong>, and conduct
+        web application vulnerability assessments following the OWASP Testing Guide.
+      </p>
+      <p>
+        On the AI side, I work as an <strong>AI Training Consultant at iMerit Technology</strong>, contributing to
+        model evaluation and training pipelines. I am actively building knowledge in <strong>agentic AI architectures,
+        ZAG pipelines</strong>, and the security implications of LLMs, including adversarial misuse, prompt injection,
+        data exposure risks, and control design aligned to OWASP LLM Top 10 and MITRE ATLAS.
+      </p>
+      <p>
+        I delivered a lightning talk at the <strong>Digital Research Conference 2026 at the Edinburgh Futures Institute</strong>
+        on Zero-Knowledge Governance, proposing a cryptographic framework for auditing research integrity in
+        Secure Multi-Party Computation environments without exposing sensitive data.
+      </p>
     </div>
     <div class="about-card">
       <div class="about-card-item">
         <span class="about-card-label">Status</span>
-        <span class="about-card-value" style="color:var(--cyan)">Open to Opportunities</span>
+        <span class="about-card-value" style="color:var(--cyan)">Open to opportunities</span>
       </div>
       <div class="about-card-item">
         <span class="about-card-label">Location</span>
@@ -273,25 +548,37 @@
 </section>
 
 <!-- EDUCATION -->
-<section id="education" class="fade-in">
+<section id="education">
   <div class="section-label">// 02</div>
-  <h2>Education</h2>
+  <h2>education</h2>
   <div class="timeline">
     <div class="tl-item">
       <div class="tl-meta">
-        <div><h3>MSc Cyber Security, Privacy and Trust</h3><div class="tl-org">The University of Edinburgh</div></div>
+        <div>
+          <h3>MSc Cyber Security, Privacy and Trust</h3>
+          <div class="tl-org">The University of Edinburgh</div>
+        </div>
         <div class="tl-date">2023 to 2025</div>
       </div>
       <ul>
         <li>Grade: 2:1</li>
         <li>Dissertation: Tor Browser traffic fingerprinting using supervised machine learning (Random Forest, SVM, XGBoost), achieving 81 to 88% classification accuracy</li>
-        <li>Conference Speaker at Digital Research Conference 2026, Edinburgh Futures Institute</li>
+        <li>Speaker, Digital Research Conference 2026, Edinburgh Futures Institute</li>
       </ul>
-      <div class="tl-tags"><span class="tl-tag">Threat Detection</span><span class="tl-tag">Cryptography</span><span class="tl-tag">Privacy</span><span class="tl-tag">Machine Learning</span><span class="tl-tag">ISO 27001</span></div>
+      <div class="tl-tags">
+        <span class="tl-tag">Threat Detection</span>
+        <span class="tl-tag">Cryptography</span>
+        <span class="tl-tag">Privacy</span>
+        <span class="tl-tag">Machine Learning</span>
+        <span class="tl-tag">ISO 27001</span>
+      </div>
     </div>
     <div class="tl-item">
       <div class="tl-meta">
-        <div><h3>BEng Electronics and Communication Engineering</h3><div class="tl-org">Anna University, Chennai</div></div>
+        <div>
+          <h3>BEng Electronics and Communication Engineering</h3>
+          <div class="tl-org">Anna University, Chennai</div>
+        </div>
         <div class="tl-date">2019 to 2023</div>
       </div>
       <ul>
@@ -299,19 +586,27 @@
         <li>Thesis: Hybrid Routing Protocol for MANETs using NS2 simulation, achieving 99.61% packet delivery rate</li>
         <li>Class Representative for 4 years; organised Cisco-led cryptography workshop</li>
       </ul>
-      <div class="tl-tags"><span class="tl-tag">Network Protocols</span><span class="tl-tag">Embedded Systems</span><span class="tl-tag">Signal Processing</span><span class="tl-tag">Wireless Communication</span></div>
+      <div class="tl-tags">
+        <span class="tl-tag">Network Protocols</span>
+        <span class="tl-tag">Embedded Systems</span>
+        <span class="tl-tag">Signal Processing</span>
+        <span class="tl-tag">Wireless Communication</span>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- EXPERIENCE -->
-<section id="experience" class="fade-in">
+<section id="experience">
   <div class="section-label">// 03</div>
-  <h2>Experience</h2>
+  <h2>experience</h2>
   <div class="timeline">
     <div class="tl-item">
       <div class="tl-meta">
-        <div><h3>AI Training Consultant</h3><div class="tl-org">iMerit Technology, Scholars Programme</div></div>
+        <div>
+          <h3>AI Training Consultant</h3>
+          <div class="tl-org">iMerit Technology, Scholars Programme</div>
+        </div>
         <div class="tl-date">Feb 2026 to Present</div>
       </div>
       <ul>
@@ -319,264 +614,387 @@
         <li>Exploring ZAG pipelines and agentic AI workflow design with a security-first perspective</li>
         <li>Applying knowledge of OWASP LLM Top 10 and MITRE ATLAS to AI security evaluation tasks</li>
       </ul>
-      <div class="tl-tags"><span class="tl-tag">Agentic AI</span><span class="tl-tag">LLM Security</span><span class="tl-tag">OWASP LLM Top 10</span><span class="tl-tag">MITRE ATLAS</span><span class="tl-tag">ZAG Pipelines</span></div>
+      <div class="tl-tags">
+        <span class="tl-tag">Agentic AI</span>
+        <span class="tl-tag">LLM Security</span>
+        <span class="tl-tag">OWASP LLM Top 10</span>
+        <span class="tl-tag">MITRE ATLAS</span>
+        <span class="tl-tag">ZAG Pipelines</span>
+      </div>
     </div>
     <div class="tl-item">
       <div class="tl-meta">
-        <div><h3>Co-Production and Experience Manager</h3><div class="tl-org">TEDxLeith</div></div>
+        <div>
+          <h3>Co-Production and Experience Manager</h3>
+          <div class="tl-org">TEDxLeith</div>
+        </div>
         <div class="tl-date">Feb 2026 to Present</div>
       </div>
       <ul>
-        <li>Managing sponsor coordination, ticketing administration via Humanitix, and venue logistics</li>
+        <li>Managing sponsor coordination, ticketing administration via Humanitix, and venue logistics for TEDxLeith events</li>
         <li>Coordinating across AV contractors, venue management, and production volunteers</li>
       </ul>
-      <div class="tl-tags"><span class="tl-tag">Event Management</span><span class="tl-tag">Stakeholder Coordination</span><span class="tl-tag">Logistics</span></div>
+      <div class="tl-tags">
+        <span class="tl-tag">Event Management</span>
+        <span class="tl-tag">Stakeholder Coordination</span>
+        <span class="tl-tag">Logistics</span>
+      </div>
     </div>
     <div class="tl-item">
       <div class="tl-meta">
-        <div><h3>Cyber Security Intern</h3><div class="tl-org">Hactify Cyber Security (Remote)</div></div>
+        <div>
+          <h3>Cyber Security Intern</h3>
+          <div class="tl-org">Hactify Cyber Security (Remote)</div>
+        </div>
         <div class="tl-date">Feb 2025 to Mar 2025</div>
       </div>
       <ul>
         <li>Supported security monitoring and incident triage across multiple client environments running Windows and Microsoft 365</li>
-        <li>Investigated Defender endpoint alerts for credential access and lateral movement indicators</li>
+        <li>Investigated Defender endpoint alerts, reviewed telemetry for credential access and lateral movement indicators</li>
         <li>Conducted web application vulnerability assessments; delivered plain-language findings reports to non-technical clients</li>
       </ul>
-      <div class="tl-tags"><span class="tl-tag">Incident Triage</span><span class="tl-tag">Defender XDR</span><span class="tl-tag">Vulnerability Assessment</span><span class="tl-tag">MITRE ATT&amp;CK</span></div>
+      <div class="tl-tags">
+        <span class="tl-tag">Incident Triage</span>
+        <span class="tl-tag">Defender XDR</span>
+        <span class="tl-tag">Vulnerability Assessment</span>
+        <span class="tl-tag">MITRE ATT&CK</span>
+      </div>
     </div>
     <div class="tl-item">
       <div class="tl-meta">
-        <div><h3>Data and Automation Intern</h3><div class="tl-org">AICTE / IBM (Remote)</div></div>
+        <div>
+          <h3>Data and Automation Intern</h3>
+          <div class="tl-org">AICTE / IBM (Remote)</div>
+        </div>
         <div class="tl-date">Jan 2025 to Mar 2025</div>
       </div>
       <ul>
         <li>Built Python automation pipelines processing approximately 3,000 security records with near-real-time dashboards</li>
         <li>Developed ML-based anomaly detection for network traffic using TensorFlow, Scikit-learn, and Zeek</li>
       </ul>
-      <div class="tl-tags"><span class="tl-tag">Python</span><span class="tl-tag">TensorFlow</span><span class="tl-tag">Zeek</span><span class="tl-tag">Power BI</span></div>
+      <div class="tl-tags">
+        <span class="tl-tag">Python</span>
+        <span class="tl-tag">TensorFlow</span>
+        <span class="tl-tag">Zeek</span>
+        <span class="tl-tag">Power BI</span>
+      </div>
     </div>
     <div class="tl-item">
       <div class="tl-meta">
-        <div><h3>IoT Security Intern</h3><div class="tl-org">BSNL, Chennai</div></div>
+        <div>
+          <h3>IoT Security Intern</h3>
+          <div class="tl-org">BSNL, Chennai</div>
+        </div>
         <div class="tl-date">Aug 2021</div>
       </div>
       <ul>
         <li>Worked on live IoT telemetry monitoring using MQTT and LoRaWAN with Raspberry Pi and Arduino</li>
         <li>Integrated AWS IoT Core for secure cloud connectivity; performed traffic analysis with Wireshark</li>
       </ul>
-      <div class="tl-tags"><span class="tl-tag">IoT</span><span class="tl-tag">MQTT</span><span class="tl-tag">AWS IoT</span><span class="tl-tag">Wireshark</span></div>
+      <div class="tl-tags">
+        <span class="tl-tag">IoT</span>
+        <span class="tl-tag">MQTT</span>
+        <span class="tl-tag">AWS IoT</span>
+        <span class="tl-tag">Wireshark</span>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- PROJECTS -->
-<section id="projects" class="fade-in">
+<section id="projects">
   <div class="section-label">// 04</div>
-  <h2>Projects</h2>
+  <h2>projects</h2>
   <div class="projects-grid">
+
     <div class="project-card">
-      <div class="project-card-header"><span class="project-icon">SOC</span><a href="https://github.com/RayaRohith/microsoft-sentinel-soc-lab" class="project-link" target="_blank">View on GitHub</a></div>
+      <div class="project-card-header">
+        <span class="project-icon">SOC</span>
+        <a href="https://github.com/RayaRohith/microsoft-sentinel-soc-lab" class="project-link" target="_blank">↗ github</a>
+      </div>
       <h3>SOC Monitoring and Incident Analysis Platform</h3>
-      <p>Microsoft Sentinel SIEM with custom KQL detection rules for brute force, suspicious sign-ins, privilege escalation, and lateral movement. Full incident reports and operational runbooks mapped to MITRE ATT&amp;CK.</p>
-      <div class="project-card-tags"><span class="tl-tag">Sentinel</span><span class="tl-tag">KQL</span><span class="tl-tag">Defender XDR</span><span class="tl-tag">MITRE ATT&amp;CK</span></div>
+      <p>Microsoft Sentinel SIEM with custom KQL detection rules for brute force, suspicious sign-ins, privilege escalation, and lateral movement. Full incident reports and operational runbooks mapped to MITRE ATT&CK.</p>
+      <div class="project-card-tags">
+        <span class="tl-tag">Sentinel</span><span class="tl-tag">KQL</span><span class="tl-tag">Defender XDR</span><span class="tl-tag">MITRE ATT&CK</span>
+      </div>
     </div>
+
     <div class="project-card">
-      <div class="project-card-header"><span class="project-icon">GRC</span><a href="https://github.com/RayaRohith/ISO27001-ISMS-GRC-Portfolio" class="project-link" target="_blank">View on GitHub</a></div>
+      <div class="project-card-header">
+        <span class="project-icon">GRC</span>
+        <a href="https://github.com/RayaRohith/ISO27001-ISMS-GRC-Portfolio" class="project-link" target="_blank">↗ github</a>
+      </div>
       <h3>ISO 27001 ISMS Implementation: CloudRise Analytics</h3>
-      <p>Audit-grade ISMS portfolio for a fictional SaaS scenario. Full Annex A documentation, risk register, Statement of Applicability, internal audit execution with CAPA lifecycle and closure evidence.</p>
-      <div class="project-card-tags"><span class="tl-tag">ISO 27001</span><span class="tl-tag">GRC</span><span class="tl-tag">Internal Audit</span><span class="tl-tag">NIST CSF</span></div>
+      <p>Audit-grade ISMS portfolio for a fictional SaaS scenario. Full Annex A documentation, risk register, Statement of Applicability, internal audit execution with CAPA lifecycle and closure evidence (EV-001 to EV-015).</p>
+      <div class="project-card-tags">
+        <span class="tl-tag">ISO 27001</span><span class="tl-tag">GRC</span><span class="tl-tag">Internal Audit</span><span class="tl-tag">NIST CSF</span>
+      </div>
     </div>
+
     <div class="project-card">
-      <div class="project-card-header"><span class="project-icon">VAPT</span><a href="https://github.com/RayaRohith/web-app-vulnerability-assessment" class="project-link" target="_blank">View on GitHub</a></div>
+      <div class="project-card-header">
+        <span class="project-icon">VAPT</span>
+        <a href="https://github.com/RayaRohith/web-app-vulnerability-assessment" class="project-link" target="_blank">↗ github</a>
+      </div>
       <h3>Web Application Vulnerability Assessment</h3>
-      <p>Structured assessment of DVWA and OWASP Juice Shop across OWASP Top 10 (2021). 10 confirmed findings including SQLi (9.9 CVSS), file upload RCE, broken authentication, XSS, IDOR, and CSRF.</p>
-      <div class="project-card-tags"><span class="tl-tag">Burp Suite</span><span class="tl-tag">OWASP</span><span class="tl-tag">CVSS v3.1</span><span class="tl-tag">Nmap</span></div>
+      <p>Structured assessment of DVWA and OWASP Juice Shop across OWASP Top 10 (2021). 10 confirmed findings including SQLi (9.9 CVSS), file upload RCE, broken authentication, XSS, IDOR, and CSRF with full remediation guidance.</p>
+      <div class="project-card-tags">
+        <span class="tl-tag">Burp Suite</span><span class="tl-tag">OWASP</span><span class="tl-tag">CVSS v3.1</span><span class="tl-tag">Nmap</span>
+      </div>
     </div>
+
     <div class="project-card">
-      <div class="project-card-header"><span class="project-icon">ML</span><a href="https://github.com/RayaRohith" class="project-link" target="_blank">View on GitHub</a></div>
+      <div class="project-card-header">
+        <span class="project-icon">ML</span>
+        <a href="https://github.com/RayaRohith" class="project-link" target="_blank">↗ github</a>
+      </div>
       <h3>Tor Browser Traffic Fingerprinting: MSc Dissertation</h3>
-      <p>Supervised ML system classifying Tor Browser traffic with 81 to 88% accuracy using Random Forest, SVM, and XGBoost. Addresses anonymisation network detection as a threat to network visibility.</p>
-      <div class="project-card-tags"><span class="tl-tag">Python</span><span class="tl-tag">Scikit-learn</span><span class="tl-tag">Traffic Analysis</span><span class="tl-tag">Privacy</span></div>
+      <p>Supervised ML system classifying Tor Browser traffic with 81 to 88% accuracy using Random Forest, SVM, and XGBoost. Addresses anonymisation network detection as a sustained threat to network visibility.</p>
+      <div class="project-card-tags">
+        <span class="tl-tag">Python</span><span class="tl-tag">Scikit-learn</span><span class="tl-tag">Traffic Analysis</span><span class="tl-tag">Privacy</span>
+      </div>
     </div>
+
     <div class="project-card">
-      <div class="project-card-header"><span class="project-icon">ZKP</span><a href="#achievements" class="project-link">DRC 2026</a></div>
+      <div class="project-card-header">
+        <span class="project-icon">ZKP</span>
+        <a href="#" class="project-link">↗ DRC 2026</a>
+      </div>
       <h3>Zero-Knowledge Governance: DRC 2026</h3>
-      <p>Governance framework combining SMPC and zero-knowledge proofs to audit research integrity without exposing sensitive data. Presented as a conference talk at Edinburgh Futures Institute, February 2026.</p>
-      <div class="project-card-tags"><span class="tl-tag">ZKP</span><span class="tl-tag">SMPC</span><span class="tl-tag">Cryptography</span><span class="tl-tag">Governance</span></div>
+      <p>Proposed governance framework combining SMPC and zero-knowledge proofs (SNARKs/STARKs) to audit research integrity without exposing sensitive data. Presented as lightning talk at Edinburgh Futures Institute, Feb 2026.</p>
+      <div class="project-card-tags">
+        <span class="tl-tag">ZKP</span><span class="tl-tag">SMPC</span><span class="tl-tag">Cryptography</span><span class="tl-tag">Governance</span>
+      </div>
     </div>
+
     <div class="project-card">
-      <div class="project-card-header"><span class="project-icon">ML</span><a href="https://github.com/RayaRohith/Web-Phishing-Detection-using-Machine-Learning" class="project-link" target="_blank">View on GitHub</a></div>
-      <h3>Web Phishing Detection using Machine Learning</h3>
-      <p>Classification system detecting phishing URLs based on domain identity, URL structure, and SSL indicators. Flask web app deployed on IBM Watson Studio. Collaborative undergraduate project (AICTE / IBM).</p>
-      <div class="project-card-tags"><span class="tl-tag">Python</span><span class="tl-tag">Scikit-learn</span><span class="tl-tag">Flask</span><span class="tl-tag">IBM Watson</span></div>
+      <div class="project-card-header">
+        <span class="project-icon">QKD</span>
+        <a href="https://github.com/RayaRohith" class="project-link" target="_blank">↗ github</a>
+      </div>
+      <h3>Quantum-Based Messaging Protocol (BB84 QKD)</h3>
+      <p>Implementation of the BB84 Quantum Key Distribution protocol for secure message exchange, exploring post-quantum cryptography principles and quantum channel simulation.</p>
+      <div class="project-card-tags">
+        <span class="tl-tag">Python</span><span class="tl-tag">BB84</span><span class="tl-tag">Post-Quantum</span><span class="tl-tag">Cryptography</span>
+      </div>
     </div>
+
+    <div class="project-card">
+      <div class="project-card-header">
+        <span class="project-icon">ML</span>
+        <a href="https://github.com/RayaRohith/Web-Phishing-Detection-using-Machine-Learning" class="project-link" target="_blank">↗ github</a>
+      </div>
+      <h3>Web Phishing Detection using Machine Learning</h3>
+      <p>Classification system detecting phishing URLs based on domain identity, URL structure, and SSL indicators. Flask web app deployed on IBM Watson Studio. Collaborative undergraduate project (AICTE/IBM).</p>
+      <div class="project-card-tags">
+        <span class="tl-tag">Python</span><span class="tl-tag">Scikit-learn</span><span class="tl-tag">Flask</span><span class="tl-tag">IBM Watson</span>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <!-- SKILLS -->
-<section id="skills" class="fade-in">
+<section id="skills">
   <div class="section-label">// 05</div>
-  <h2>Skills</h2>
+  <h2>skills</h2>
   <div class="skills-grid">
     <div class="skill-group">
       <div class="skill-group-title">Security Operations</div>
       <ul class="skill-list">
-        <li>Microsoft Sentinel (SIEM)</li><li>Defender XDR / EDR</li><li>KQL Detection Rules</li>
-        <li>Incident Triage and Response</li><li>MITRE ATT&amp;CK</li><li>CVSS v3.1 Scoring</li><li>Wireshark / Nmap</li>
+        <li>Microsoft Sentinel (SIEM)</li>
+        <li>Defender XDR / EDR</li>
+        <li>KQL Detection Rules</li>
+        <li>Incident Triage and Response</li>
+        <li>MITRE ATT&CK</li>
+        <li>CVSS v3.1 Scoring</li>
+        <li>Wireshark / Nmap</li>
       </ul>
     </div>
     <div class="skill-group">
       <div class="skill-group-title">Offensive Security</div>
       <ul class="skill-list">
-        <li>Burp Suite</li><li>OWASP Top 10</li><li>Web Application VA</li>
-        <li>Metasploit</li><li>Kali Linux</li><li>OSINT / Shodan</li><li>Nmap / Gobuster</li>
+        <li>Burp Suite</li>
+        <li>OWASP Top 10</li>
+        <li>Web Application VA</li>
+        <li>Metasploit</li>
+        <li>Kali Linux</li>
+        <li>OSINT / Shodan</li>
+        <li>Nmap / Gobuster</li>
       </ul>
     </div>
     <div class="skill-group">
       <div class="skill-group-title">GRC and Compliance</div>
       <ul class="skill-list">
-        <li>ISO 27001 / 27002</li><li>NIST CSF 2.0</li><li>SOC 2 Type II Mapping</li>
-        <li>Risk Register and SoA</li><li>Internal Audit (CAPA)</li><li>GDPR Awareness</li><li>Data Protection</li>
+        <li>ISO 27001 / 27002</li>
+        <li>NIST CSF 2.0</li>
+        <li>SOC 2 Type II Mapping</li>
+        <li>Risk Register and SoA</li>
+        <li>Internal Audit (CAPA)</li>
+        <li>GDPR Awareness</li>
+        <li>Data Protection</li>
       </ul>
     </div>
     <div class="skill-group">
       <div class="skill-group-title">AI and Security</div>
       <ul class="skill-list">
-        <li>Agentic AI Architectures</li><li>ZAG Pipelines</li><li>OWASP LLM Top 10</li>
-        <li>MITRE ATLAS</li><li>Prompt Injection Defence</li><li>LLM Model Evaluation</li><li>Zero-Knowledge Proofs</li>
+        <li>Agentic AI Architectures</li>
+        <li>ZAG Pipelines</li>
+        <li>OWASP LLM Top 10</li>
+        <li>MITRE ATLAS</li>
+        <li>Prompt Injection Defence</li>
+        <li>LLM Model Evaluation</li>
+        <li>Zero-Knowledge Proofs</li>
       </ul>
     </div>
     <div class="skill-group">
       <div class="skill-group-title">Languages and Tools</div>
       <ul class="skill-list">
-        <li>Python</li><li>KQL</li><li>Bash / PowerShell</li>
-        <li>JavaScript / TypeScript</li><li>SQL</li><li>Git / GitHub</li><li>Docker</li>
+        <li>Python</li>
+        <li>KQL</li>
+        <li>Bash / PowerShell</li>
+        <li>JavaScript / TypeScript</li>
+        <li>SQL</li>
+        <li>Git / GitHub</li>
+        <li>Docker</li>
       </ul>
     </div>
     <div class="skill-group">
       <div class="skill-group-title">ML and Data</div>
       <ul class="skill-list">
-        <li>Scikit-learn</li><li>TensorFlow / Keras</li><li>Pandas / NumPy</li>
-        <li>Power BI</li><li>Zeek (Network ML)</li><li>Anomaly Detection</li><li>Traffic Classification</li>
+        <li>Scikit-learn</li>
+        <li>TensorFlow / Keras</li>
+        <li>Pandas / NumPy</li>
+        <li>Power BI</li>
+        <li>Zeek (Network ML)</li>
+        <li>Anomaly Detection</li>
+        <li>Traffic Classification</li>
       </ul>
     </div>
   </div>
 </section>
 
 <!-- ACHIEVEMENTS -->
-<section id="achievements" class="fade-in">
+<section id="achievements">
   <div class="section-label">// 06</div>
-  <h2>Achievements</h2>
+  <h2>achievements</h2>
+  <div class="achievements-list">
 
-  <!-- Conference Card -->
-  <div class="conf-card">
-    <img src="images/DRS.jpg" alt="Digital Research Conference 2026" />
-    <div>
-      <div class="conf-card-label">Conference Speaker</div>
-      <h3>Digital Research Conference 2026</h3>
-      <p>Edinburgh Futures Institute, University of Edinburgh, 26 February 2026. Presented a lightning talk on Zero-Knowledge Governance: Auditing Research Integrity in Secure Multi-Party Computation (SMPC). Session chaired by Professor John Vines on Ethics, Security and Integrity in Digital Research.</p>
-      <div class="conf-meta">
-        <span class="conf-badge">ZKP</span><span class="conf-badge">SMPC</span><span class="conf-badge">Research Integrity</span><span class="conf-badge">Cryptographic Governance</span>
+    <div class="achievement-item">
+      <span class="achievement-icon">CONF</span>
+      <div class="achievement-text">
+        <strong>Conference Speaker: Digital Research Conference 2026, Edinburgh Futures Institute.</strong> Presented Zero-Knowledge Governance: Auditing Research Integrity in Secure Multi-Party Computation (SMPC). Session: Ethics, Security and Integrity in Digital Research, chaired by Professor John Vines.
       </div>
     </div>
-  </div>
 
-  <div class="achievements-list">
     <div class="achievement-item">
       <span class="achievement-icon purple">IEEE</span>
-      <div class="achievement-text"><strong>IEEE ICONSTEM 2024 Publication.</strong> A Comparative Study of Ad-Hoc Networks for Hybrid Protocol Development.<a href="http://dx.doi.org/10.1109/ICONSTEM60960.2024.10568744" target="_blank">View Paper</a></div>
+      <div class="achievement-text">
+        <strong>IEEE ICONSTEM 2024 Publication.</strong> A Comparative Study of Ad-Hoc Networks for Hybrid Protocol Development.
+        <a href="http://dx.doi.org/10.1109/ICONSTEM60960.2024.10568744" style="color:var(--cyan);margin-left:6px;font-size:11px;">↗ doi</a>
+      </div>
     </div>
+
     <div class="achievement-item">
       <span class="achievement-icon purple">IEEE</span>
-      <div class="achievement-text"><strong>IEEE ICACITE 2023 Publication.</strong> An Empirical Assessment of Wireless Communication Technology Issues in the Smart Home.<a href="http://dx.doi.org/10.1109/ICACITE57410.2023.10183015" target="_blank">View Paper</a></div>
+      <div class="achievement-text">
+        <strong>IEEE ICACITE 2023 Publication.</strong> An Empirical Assessment of Wireless Communication Technology Issues in the Smart Home.
+        <a href="http://dx.doi.org/10.1109/ICACITE57410.2023.10183015" style="color:var(--cyan);margin-left:6px;font-size:11px;">↗ doi</a>
+      </div>
     </div>
+
     <div class="achievement-item">
       <span class="achievement-icon">AWARD</span>
-      <div class="achievement-text"><strong>Runner-Up, Techgium Hackathon by L&amp;T.</strong> Recognised for AI-driven aerospace maintenance forecasting at a national-level challenge hosted by Larsen and Toubro.</div>
+      <div class="achievement-text">
+        <strong>Runner-Up, Techgium Hackathon by L&T.</strong> Recognised for AI-driven aerospace maintenance forecasting at a national-level challenge hosted by Larsen and Toubro.
+      </div>
     </div>
+
     <div class="achievement-item">
       <span class="achievement-icon">AWARD</span>
-      <div class="achievement-text"><strong>Runner-Up, Smart India Hackathon (ARSENICS).</strong> Wearable obstacle detection system for visually impaired prosthetic limb users. University-level runner-up.</div>
+      <div class="achievement-text">
+        <strong>Runner-Up, Smart India Hackathon (ARSENICS).</strong> Wearable obstacle detection system for visually impaired prosthetic limb users. University-level runner-up.
+      </div>
     </div>
+
     <div class="achievement-item">
-      <span class="achievement-icon grey">CR</span>
-      <div class="achievement-text"><strong>Class Representative, 4 Years.</strong> Represented 60+ students at Rajalakshmi Engineering College. Organised a Cisco-led cryptography workshop, co-led a national symposium with 2,000+ participants, and published two IEEE papers during tenure.</div>
+      <span class="achievement-icon">CR</span>
+      <div class="achievement-text">
+        <strong>Class Representative, 4 years.</strong> Represented 60+ students at Rajalakshmi Engineering College. Organised a Cisco-led cryptography workshop, co-led a national symposium with 2,000+ participants, published two IEEE papers during tenure.
+      </div>
     </div>
-    <div class="achievement-item">
-      <span class="achievement-icon grey">ED</span>
-      <div class="achievement-text"><strong>Chief Editor, ElComm Magazine 2022.</strong> Led editorial strategy, content selection, and design for the department magazine.</div>
-    </div>
+
   </div>
 </section>
 
 <!-- CERTIFICATIONS -->
-<section id="certifications" class="fade-in">
+<section id="certifications">
   <div class="section-label">// 07</div>
-  <h2>Certifications</h2>
+  <h2>certifications</h2>
   <div class="certs-grid">
     <a href="https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/mastercard/vcKAB5yYAgvemepGQ_Mastercard_mbtvEg7TqHpKMiuhN_1658850531921_completion_certificate.pdf" class="cert-card" target="_blank">
-      <img src="images/Forage_Mastercard.png" alt="Mastercard" /><span>Mastercard Cybersecurity</span>
+      <img src="images/Forage_Mastercard.png" alt="Mastercard" />
+      <span>Mastercard Cybersecurity</span>
     </a>
     <a href="https://courses.ictacademy.skillsnetwork.site/certificates/e54aa99b960548be884fdc3bea117743" class="cert-card" target="_blank">
-      <img src="images/IBM.png" alt="IBM" /><span>IBM Certification</span>
+      <img src="images/IBM.png" alt="IBM" />
+      <span>IBM Certification</span>
     </a>
     <a href="https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/ifobHAoMjQs9s6bKS/gmf3ypEXBj2wvfQWC_ifobHAoMjQs9s6bKS_mbtvEg7TqHpKMiuhN_1748648430691_completion_certificate.pdf" class="cert-card" target="_blank">
-      <img src="images/Tatacyber.png" alt="Tata" /><span>Tata SOC Analyst</span>
+      <img src="images/Tatacyber.png" alt="Tata" />
+      <span>Tata SOC Analyst</span>
     </a>
     <a href="https://www.credly.com/badges/be2a5061-3e4b-4901-bf68-900b36722241/linked_in?t=romyoc" class="cert-card" target="_blank">
-      <img src="images/MITRE ATT&CK.png" alt="MITRE" /><span>MITRE ATT&amp;CK</span>
+      <img src="images/MITRE ATT&CK.png" alt="MITRE" />
+      <span>MITRE ATT&CK</span>
     </a>
     <a href="#" class="cert-card">
-      <img src="images/SACHA.jpeg" alt="Edinburgh Award" /><span>The Edinburgh Award</span>
-    </a>
-  </div>
-</section>
-
-<!-- CODING PROFILES -->
-<section id="coding" class="fade-in">
-  <div class="section-label">// 08</div>
-  <h2>Coding Profiles</h2>
-  <div class="coding-grid">
-    <a href="https://tryhackme.com/p/rohith.raya" class="coding-card" target="_blank">
-      <img src="images/Tryhackme.png" alt="TryHackMe" /><span>TryHackMe: SOC / Red Team</span>
-    </a>
-    <a href="https://www.interviewbit.com/profile/yij1wwni_w/" class="coding-card" target="_blank">
-      <img src="images/ib.png" alt="InterviewBit" /><span>InterviewBit: University Rank 1</span>
-    </a>
-    <a href="https://leetcode.com/u/rohithraya09/" class="coding-card" target="_blank">
-      <img src="images/leetcode.png" alt="LeetCode" /><span>LeetCode</span>
+      <img src="images/SACHA.jpeg" alt="Edinburgh Award" />
+      <span>The Edinburgh Award</span>
     </a>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="fade-in">
-  <div class="section-label">// 09</div>
-  <h2>Contact</h2>
+<section id="contact">
+  <div class="section-label">// 08</div>
+  <h2>contact</h2>
   <div class="contact-grid">
     <a href="mailto:rohithyadavraya@gmail.com" class="contact-card">
-      <span class="contact-icon">EMAIL</span>
-      <div class="contact-text"><span class="contact-label">Email</span><span class="contact-value">rohithyadavraya@gmail.com</span></div>
+      <span class="contact-card-icon">EMAIL</span>
+      <div class="contact-card-text">
+        <span class="contact-card-label">Email</span>
+        <span class="contact-card-value">rohithyadavraya@gmail.com</span>
+      </div>
     </a>
     <a href="https://www.linkedin.com/in/raya-rohith-yadav-b71206204/" class="contact-card" target="_blank">
-      <span class="contact-icon">LI</span>
-      <div class="contact-text"><span class="contact-label">LinkedIn</span><span class="contact-value">raya-rohith-yadav</span></div>
+      <span class="contact-card-icon">LI</span>
+      <div class="contact-card-text">
+        <span class="contact-card-label">LinkedIn</span>
+        <span class="contact-card-value">raya-rohith-yadav</span>
+      </div>
     </a>
     <a href="https://github.com/RayaRohith" class="contact-card" target="_blank">
-      <span class="contact-icon">GH</span>
-      <div class="contact-text"><span class="contact-label">GitHub</span><span class="contact-value">RayaRohith</span></div>
+      <span class="contact-card-icon">GH</span>
+      <div class="contact-card-text">
+        <span class="contact-card-label">GitHub</span>
+        <span class="contact-card-value">RayaRohith</span>
+      </div>
     </a>
     <a href="https://drive.google.com/file/d/1PnstzogUxvYWzcRXlbQbTCt_kpg88h4f/view?usp=sharing" class="contact-card" target="_blank">
-      <span class="contact-icon">CV</span>
-      <div class="contact-text"><span class="contact-label">Resume</span><span class="contact-value">View / Download</span></div>
+      <span class="contact-card-icon">CV</span>
+      <div class="contact-card-text">
+        <span class="contact-card-label">Resume</span>
+        <span class="contact-card-value">View / Download</span>
+      </div>
     </a>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <span>raya@rohith</span>:~$ Built with intention. Edinburgh, 2026.
 </footer>
 
-<script src="js/animations.js"></script>
 </body>
 </html>
